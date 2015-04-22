@@ -1,0 +1,15 @@
+.gform label{position:relative;}
+.gform .placeholder{position:absolute;left:0;top:0;padding:0 5px;color:#999;}
+.gform .text-entry{width:200px;}
+
+body {
+    font-family: Monospace;
+    background-color: #F5F5F5;
+    margin: 0px;
+    overflow: hidden;
+    text-align: center;
+}
+#container {
+    height: window.innerHeight;
+    width: window.innerWeight;
+}
