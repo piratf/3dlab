@@ -9,6 +9,11 @@ body {
     overflow: hidden;
     text-align: center;
 }
+
+#inputDIV {
+    /*text-align: left;*/
+}
+
 #container {
     height: window.innerHeight;
     width: window.innerWeight;

@@ -12,7 +12,7 @@
 var camera, scene, renderer;
 var windowScale;
 
-function PolygonGeometry(sides, location, radius) {
+function PolygonGeometry(sides, radius, location) {
 	var geo = new THREE.Geometry();
 
 	// generate vertices
@@ -29,7 +29,7 @@ function PolygonGeometry(sides, location, radius) {
 	}
 
 	// generate faces
-	for ( var face = 0, loop = sides-2; face < loop; face++ )
+	for ( var face = 0 ; face < sides-2; face++ )
 	{
 		// this makes a triangle fan, from the first +Y point around
 		geo.faces.push( new THREE.Face3( 0, face+1, face+2 ) );
@@ -89,16 +89,35 @@ function render() {
 }
 
 // Main body of the script
-try {
-	init();
-	showGrids();
-	var geo = PolygonGeometry(9, new THREE.Vector3( 5, 5, 0 ), 5);
-	var material = new THREE.MeshBasicMaterial( { color: 0xff0000, side: THREE.FrontSide } );
-	var mesh = new THREE.Mesh( geo, material );
-	scene.add( mesh );
-	addToDOM();
-	render();
-} catch(e) {
-	var errorReport = "Your program encountered an unrecoverable error, can not draw on canvas. Error was:<br/><br/>";
-	$('#container').append(errorReport+e);
+
+init();
+showGrids();
+addToDOM();
+render();
+
+function Refresh () {
+	var sides = document.getElementById('sidesInput').value;
+	var radius = document.getElementById('radiusInput').value;
+	var str = document.getElementById('locationInput').value;
+	var locationRaw = new Array();
+	locationRaw = str.split(" ");
+	// for (i=0;i<locationRaw.length ;i++ )    
+	// {
+	// document.write(locationRaw[2]);    //分割后的字符输出
+	// } 
+	var location = new THREE.Vector3( locationRaw[0] - '0', locationRaw[1] - '0', locationRaw[2] - '0' );
+
+	try {
+		init();
+		showGrids();
+		var geo = PolygonGeometry(sides, radius, location);
+		var material = new THREE.MeshBasicMaterial( { color: 0xBABABA, side: THREE.FrontSide } );
+		var mesh = new THREE.Mesh( geo, material );
+		scene.add( mesh );
+		addToDOM();
+		render();
+	} catch(e) {
+		var errorReport = "Your program encountered an unrecoverable error, can not draw on canvas. Error was:<br/><br/>";
+		$('#container').append(errorReport+e);
+	}
 }
